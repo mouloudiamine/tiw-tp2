@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'materialize-css/dist/css/materialize.css'
+import Button from 'react-bootstrap/Button';
+
 
 export default class ButtonMaterialize extends React.Component {
     render() {
@@ -9,6 +11,9 @@ export default class ButtonMaterialize extends React.Component {
             <hr/>
             <a href="https://materializecss.com" className="waves-effect waves-light btn  center-align blue"><i
                 className="material-icons left">cloud</i>Ceci est un button du framework Materialize</a>
+            <Button>Primary</Button>
+
         </div>
+
     }
 }
