@@ -3,6 +3,7 @@ export const REMOVE_SLIDE = "REMOVE_SLIDE";
 export const NEXT_SLIDE = 'NEXT_SLIDE';
 export const PREVIOUS_SLIDE = 'PREVIOUS_SLIDE';
 export const SET_SLIDE = 'SET_SLIDE';
+export const SET_MODE= 'SET_MODE';
 
 export function addSlide(payload, pos) {
     return {
@@ -25,4 +26,7 @@ export function previousSlide(payload) {
 
 export function setSlide(index) {
     return { type: SET_SLIDE, index };
+}
+export function setMode (mode) {
+    return { type: SET_MODE, mode };
 }

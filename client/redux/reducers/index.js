@@ -1,6 +1,8 @@
-import {ADD_SLIDE, NEXT_SLIDE, PREVIOUS_SLIDE, REMOVE_SLIDE, SET_SLIDE} from "../actions";
+import {ADD_SLIDE, NEXT_SLIDE, PREVIOUS_SLIDE, REMOVE_SLIDE, SET_SLIDE, SET_MODE} from "../actions";
+import {PRESENT} from "../../index";
 
 const initialState = {
+    mode: PRESENT,
     index: 1,
     slides: [
         {type: 'title', title: 'TIW 8', visible: true, notes: "note 1"},
@@ -48,6 +50,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 index: action.index
             };
+        case SET_MODE:
+            return {
+                ...state,
+                mode: action.mode
+            };
+
         default:
             return state
     }

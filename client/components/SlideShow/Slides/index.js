@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from "react-bootstrap/Container";
-import {Slide} from "./Slide";
+import {slide as Slide} from "./Slide";
 import {connect} from "react-redux";
 import {setSlide} from "../../../redux/actions";
 import {Toolbar } from "./Toolbar";
@@ -8,6 +8,7 @@ import {Toolbar } from "./Toolbar";
 
 const mapStateToProps = (state) => {
     return {
+        mode : state.mode,
         index: state.index,
         slides: state.slides
     }
@@ -27,7 +28,8 @@ export class Slides extends React.Component {
             && prevProps.index !== this.props.index
             && parseInt(this.props.match.params.index) !== this.props.index
         )
-            this.props.history.push(`/${this.props.index}`);
+            this.props.history.push(`/${this.props.mode}/${this.props.index}`);
+
         if(
             parseInt(prevProps.match.params.index) !== parseInt(this.props.match.params.index)
             && prevProps.index === this.props.index
