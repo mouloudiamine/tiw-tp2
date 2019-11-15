@@ -6,7 +6,6 @@ import {setSlide} from "../../../redux/actions";
 import {Toolbar } from "./Toolbar";
 import {PRESENT} from "../../../index";
 
-
 const mapStateToProps = (state) => {
     return {
         mode : state.mode,
@@ -22,6 +21,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 export class Slides extends React.Component {
+
+
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(

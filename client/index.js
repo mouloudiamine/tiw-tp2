@@ -6,10 +6,20 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import {isMobile} from 'react-device-detect';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {SET_SLIDE, setSlide} from "./redux/actions";
 
 export const PRESENT  =  "present";
 export const CONTROLER  =  "controler";
 export const EDIT  =  "edit";
+
+const  socket =require('socket.io-client').connect();
+socket.on('set_slide', (action) => {
+    if (action.type === SET_SLIDE) {
+        store.dispatch(setSlide(action.index,false
+        ));
+    }
+});
+
 class Index extends React.Component {
     render() {
         return  (

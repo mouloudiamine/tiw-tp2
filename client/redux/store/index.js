@@ -1,8 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import {applyMiddleware, createStore} from "redux";
 import rootReducer from "../reducers";
-import {logger} from "../middleware/Middleware";
-const store = createStore(
-    rootReducer,
-    applyMiddleware(logger)
-);
+import {logger, propagateSocket} from "../../middleware";
+
+const store = createStore(rootReducer, applyMiddleware(logger, propagateSocket));
+
 export default store;

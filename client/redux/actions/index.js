@@ -12,21 +12,21 @@ export function addSlide(payload, pos) {
         pos};
 }
 
-export function removeSlide(payload) {
-    return { type: REMOVE_SLIDE, payload };
+export function removeSlide(payload, internalAction = true) {
+    return { type: REMOVE_SLIDE, payload,internalAction };
 }
 
-export function nextSlide(payload) {
-    return { type: NEXT_SLIDE, payload };
+export function nextSlide(payload,internalAction = true) {
+    return { type: NEXT_SLIDE, payload, internalAction };
 }
 
-export function previousSlide(payload) {
-    return { type: PREVIOUS_SLIDE, payload };
+export function previousSlide(payload, internalAction = true) {
+    return { type: PREVIOUS_SLIDE, payload, internalAction };
 }
 
-export function setSlide(index) {
-    return { type: SET_SLIDE, index };
+export function setSlide(index, internalAction = true) {
+    return { type: SET_SLIDE, index, internalAction };
 }
-export function setMode (mode) {
-    return { type: SET_MODE, mode };
+export function setMode (mode, internalAction = true) {
+    return { type: SET_MODE, mode,internalAction };
 }

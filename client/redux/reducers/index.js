@@ -1,5 +1,6 @@
 import {ADD_SLIDE, NEXT_SLIDE, PREVIOUS_SLIDE, REMOVE_SLIDE, SET_SLIDE, SET_MODE} from "../actions";
 import {PRESENT} from "../../index";
+import {slides} from "../../components/SlideShow/Slides";
 
 const initialState = {
     mode: PRESENT,
@@ -48,7 +49,7 @@ function rootReducer(state = initialState, action) {
         case SET_SLIDE:
             return {
                 ...state,
-                index: action.index
+                index: action.index >= state.slides.length ? state.slides.length : (action.index <=1 ? 1 : action.index)
             };
         case SET_MODE:
             return {
