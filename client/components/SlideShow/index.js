@@ -9,11 +9,14 @@ const mapDispatchToProps = dispatch => {
         setMode: mode => dispatch(setMode(mode))
     }
 };
+
+
+
 export class SlideShow extends React.Component {
+
     componentDidMount() {
         this.props.setMode(this.props.mode)
     }
-
     render() {
         return  (
             <Switch>
