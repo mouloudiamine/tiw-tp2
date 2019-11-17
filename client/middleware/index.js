@@ -1,6 +1,14 @@
-import {SET_SLIDE} from "../redux/actions";
+import {
+    ADD_ITEM,
+    SET_SLIDE,
+    ADD_DRAW_POINTS,
+    RESET_DRAW_POINTS,
+    setSlide,
+    addItem,
+    addDrawPoints, resetDrawPoints
+} from "../redux/actions";
+import store from "../redux/store";
 
-const  socket =require('socket.io-client').connect();
 
 export const logger = store => next => action => {
     console.log('dispatching', action);
@@ -11,7 +19,39 @@ export const logger = store => next => action => {
 
 export const propagateSocket  = store => next => action => {
     if (action.type === SET_SLIDE  && action.internalAction) {
-        socket.emit('set_slide', action);
+        require('socket.io-client').connect().emit('set_slide', action);
+    }
+    if (action.type === ADD_ITEM && action.internalAction) {
+        require('socket.io-client').connect().emit('add_item', action);
+    }
+    if (action.type === ADD_DRAW_POINTS && action.internalAction) {
+        require('socket.io-client').connect().emit(ADD_DRAW_POINTS, action);
+    }
+    if (action.type === RESET_DRAW_POINTS && action.internalAction) {
+        require('socket.io-client').connect().emit(RESET_DRAW_POINTS, action);
     }
     return next(action);
 };
+const  socket =require('socket.io-client').connect();
+socket.on('set_slide', (action) => {
+    if (action.type === SET_SLIDE) {
+        store.dispatch(setSlide(action.index,false
+        ));
+    }
+});
+socket.on('add_item', (action) => {
+    if (action.type === ADD_ITEM) {
+        store.dispatch(addItem(action.payload,false));
+    }
+});
+socket.on(ADD_DRAW_POINTS, (action) => {
+    if (action.type === ADD_DRAW_POINTS) {
+        store.dispatch(addDrawPoints(action.clickX, action.clickY, action.clickDrag, false));
+    }
+});
+
+socket.on(RESET_DRAW_POINTS, (action) => {
+    if (action.type === RESET_DRAW_POINTS) {
+        store.dispatch(resetDrawPoints(false));
+    }
+});

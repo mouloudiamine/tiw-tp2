@@ -1,17 +1,34 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
+import {connect} from "react-redux";
+import EasyEdit from 'react-easy-edit';
+import Notes from "../../Notes";
+
+const mapStateToProps = (state) => {
+    return {
+        index: state.index,
+        slides: state.slides[state.index-1]
+    }
+};
 
 export class Text extends React.Component {
-
+    constructor(props, context) {
+        super(props, context);
+    }
     render() {
-        return  (
-            <Col xs={6}>
-                <p>
-                    Lyon, ville française de la région historique Rhône-Alpes, se trouve à la jonction du Rhône et de la Saône. Son centre témoigne de 2 000 ans d'histoire, avec son amphithéâtre romain des Trois Gaules, l'architecture médiévale et Renaissance du Vieux Lyon et la modernité du quartier de la Confluence sur la Presqu'île. Les Traboules, passages couverts entre les immeubles, relient le Vieux Lyon à la colline de La Croix-Rousse.
-                </p>
-            </Col>
 
-        );
+        return(
+            <EasyEdit
+                type="text"
+                onSave={()=>{}}
+                onCancel={()=>{}}
+                value = {this.props.slides.text}
+                saveButtonLabel="Sauvegarder"
+                cancelButtonLabel="Annuler"
+                attributes={{ name: "awesome-input", id: 1}}
+            />
+            );
     }
 
 }
+export const text = connect(mapStateToProps, null)(Text);
+

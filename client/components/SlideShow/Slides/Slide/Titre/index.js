@@ -1,6 +1,5 @@
 import React from "react";
 import Col from "react-bootstrap/Col";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Titre extends React.Component {
 

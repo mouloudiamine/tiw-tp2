@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setSlide} from "../../../redux/actions";
 import {Toolbar } from "./Toolbar";
 import {PRESENT} from "../../../index";
+import Notes from "./Slide/Notes";
 
 const mapStateToProps = (state) => {
     return {
@@ -47,8 +48,10 @@ export class Slides extends React.Component {
         let mode  = this.props.mode;
         return  (
             <Container fluid={true} className="h-100">
-                <Slide slide={slides[index]} m />
+                <Slide slide={slides[index]}  />
+                <br/>
                 { mode ===PRESENT ? '' : <Toolbar />}
+                { mode ===PRESENT ? '' : <Notes />}
             </Container>
         );
     }

@@ -10,8 +10,6 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-
-
 export class SlideShow extends React.Component {
 
     componentDidMount() {

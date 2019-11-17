@@ -27,7 +27,21 @@ const io = require('socket.io')(server);
 server.listen(port);
 
 io.on('connection', function (socket) {
+
+    socket.on("ADD_DRAW_POINTS", (action) => {
+        socket.broadcast.emit("ADD_DRAW_POINTS", action);
+    });
+
+    socket.on("RESET_DRAW_POINTS", (action) => {
+        socket.broadcast.emit("RESET_DRAW_POINTS", action);
+    });
+
     socket.on('set_slide', (action) => {
         socket.broadcast.emit('set_slide', action);
     });
+    socket.on('add_item', (action) => {
+        socket.broadcast.emit('add_item', action);
+    });
 });
+
+
