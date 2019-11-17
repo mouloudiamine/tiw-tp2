@@ -32,13 +32,6 @@ export const propagateSocket  = store => next => action => {
     if (action.type === RESET_DRAW_POINTS && action.internalAction) {
         require('socket.io-client').connect().emit(RESET_DRAW_POINTS, action);
     }
-    if (action.type === REMOVE_SLIDE && action.internalAction) {
-        require('socket.io-client').connect().emit(RESET_DRAW_POINTS, action);
-    }
-
-    if (action.type === ADD_SLIDE && action.internalAction) {
-        require('socket.io-client').connect().emit(ADD_SLIDE, action);
-    }
     return next(action);
 };
 
@@ -56,12 +49,15 @@ socket.on('add_item', (action) => {
     }
 });
 
-
+socket.on(ADD_DRAW_POINTS, (action) => {
+    if (action.type === ADD_DRAW_POINTS) {
+        store.dispatch(addDrawPoints(action.clickX, action.clickY, action.clickDrag, false));
+    }
+});
 
 socket.on(RESET_DRAW_POINTS, (action) => {
     if (action.type === RESET_DRAW_POINTS) {
         store.dispatch(resetDrawPoints(false));
     }
 });
-
 
