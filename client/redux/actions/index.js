@@ -8,13 +8,6 @@ export const RESET_DRAW_POINTS = 'RESET_DRAW_POINTS';
 export const SET_MODE= 'SET_MODE';
 export const ADD_ITEM= 'ADD_ITEM';
 
-export function addSlide(payload, pos) {
-    return {type: ADD_SLIDE, payload, pos};
-}
-
-export function removeSlide(payload, internalAction = true) {
-    return { type: REMOVE_SLIDE, payload,internalAction };
-}
 
 export function nextSlide(payload,internalAction = true) {
     return { type: NEXT_SLIDE, payload, internalAction };
@@ -39,6 +32,11 @@ export function addDrawPoints(clickX, clickY, clickDrag, internalAction = true) 
     return { type: ADD_DRAW_POINTS, clickX, clickY, clickDrag, internalAction}
 }
 export function resetDrawPoints(internalAction = true) {
-
     return { type: RESET_DRAW_POINTS, internalAction}
+}
+export function removeSlide(index, internalAction = true) {
+    return { type: REMOVE_SLIDE, index, internalAction};
+}
+export function addSlide(payload, pos,internalAction = true) {
+    return {type: ADD_SLIDE, payload, pos, internalAction};
 }

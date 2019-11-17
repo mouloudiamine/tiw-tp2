@@ -7,11 +7,11 @@ const initialState = {
     slides: [
         {type: 'title', title: 'TIW 8', visible: true, notes: "note 1"},
         {type: 'content', title: 'TP 1', text: "Le TP porte sur des rappels de developpement Web", visible: false, notes: "ce transparent est caché",
-            items:["elem1","elem2","elem3","elem4"]},
+            items:["WEB 1.0","web 2.0","Web 3.0"], image:"https://qph.fs.quoracdn.net/main-qimg-b1ebcd8542cd4210d70bba11dff15df9.webp"},
         {type: 'content', title: 'TP 2', text: "Le TP porte sur la creation d'un outil de presentation HTML", visible: true, notes: "",
-            items:["elem11","elem22","elem33","elem44"]},
-        {type: 'content', title: 'TP 3', text: "Le TP 3", visible: true, notes: "note 4",items:["elem111","elem222","elem333"]},
-        {type: 'content', title: 'TP 4', text: "Le TP 4", visible: true, notes: "note 5",items:["elem14","elem24"]},
+            items:["CSS","JAVASCRIPT","HTML","React Js"], image :"https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto/gigs/120110048/original/311fd1304a687959d52413849ed9299cd62e4857/do-html-css-javascript-react-js-angular.jpg"},
+        {type: 'content', title: "TP 3  ", text: "Le TP 3 porte sur la conception et la réalisation d'un entrepot de données (Datawarehouse)", visible: true, notes: "note 4",items:["Data warehouse","ETL","OLAP"], image:"https://www.researchgate.net/profile/Senda_Bouaziz4/publication/314248372/figure/fig1/AS:482071350124545@1491946174097/Web-Services-Based-Real-Time-Data-Warehouse-Architecture-7.png"},
+        {type: 'content', title: 'TP 4', text: "Le TP 4 porte sur les technologies Arduino & Raspberry ", visible: true, notes: "note 5",items:["Arduino ","Raspberry"],image :"https://i0.wp.com/makezine.com/wp-content/uploads/2015/12/raspberry-pi-vs-arduino-board.jpg?resize=1200%2C670&strip=all&ssl=1"},
         {type: 'title', title: 'Question ?', visible: true, notes: "note 6"},
     ],
     drawing: {
@@ -40,12 +40,13 @@ function rootReducer(state = initialState, action) {
                 slides: [...state.slides,stock]
             };
         }
-
         case REMOVE_SLIDE: {
-            state.slides.splice(action.pos, 0, action.payload);
+            console.log("remove slide");
+            let newSlides = [...state.slides];
+            newSlides.splice(action.pos, 1);
             return {
                 ...state,
-                slides: state.slides
+                slides: newSlides
             };
         }
         case NEXT_SLIDE:

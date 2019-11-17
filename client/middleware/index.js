@@ -4,6 +4,7 @@ import {
     ADD_DRAW_POINTS,
     RESET_DRAW_POINTS,
     ADD_SLIDE,
+    REMOVE_SLIDE,
     setSlide,
     addItem,
     addDrawPoints, resetDrawPoints, addSlide
@@ -31,8 +32,17 @@ export const propagateSocket  = store => next => action => {
     if (action.type === RESET_DRAW_POINTS && action.internalAction) {
         require('socket.io-client').connect().emit(RESET_DRAW_POINTS, action);
     }
+    if (action.type === REMOVE_SLIDE && action.internalAction) {
+        require('socket.io-client').connect().emit(RESET_DRAW_POINTS, action);
+    }
+
+    if (action.type === ADD_SLIDE && action.internalAction) {
+        require('socket.io-client').connect().emit(ADD_SLIDE, action);
+    }
     return next(action);
 };
+
+
 const  socket =require('socket.io-client').connect();
 socket.on('set_slide', (action) => {
     if (action.type === SET_SLIDE) {
@@ -45,6 +55,7 @@ socket.on('add_item', (action) => {
         store.dispatch(addItem(action.payload,false));
     }
 });
+
 socket.on(ADD_DRAW_POINTS, (action) => {
     if (action.type === ADD_DRAW_POINTS) {
         store.dispatch(addDrawPoints(action.clickX, action.clickY, action.clickDrag, false));
@@ -56,8 +67,11 @@ socket.on(RESET_DRAW_POINTS, (action) => {
         store.dispatch(resetDrawPoints(false));
     }
 });
+
 socket.on(ADD_SLIDE, (action) => {
+    console.log("=====>"+JSON.stringify(action));
     if (action.type === ADD_SLIDE) {
-        store.dispatch(addSlide(false));
+        store.dispatch(addSlide(action.payload, action.pos, false));
+
     }
 });

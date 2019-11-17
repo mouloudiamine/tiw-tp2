@@ -1,12 +1,11 @@
 import React, {Fragment} from "react";
 import {connect} from "react-redux";
-import {addDrawPoints, addSlide, resetDrawPoints, setSlide} from "../../../../redux/actions";
+import {addDrawPoints, addSlide, removeSlide, resetDrawPoints, setSlide} from "../../../../redux/actions";
 import {withRouter} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 
 
@@ -24,8 +23,8 @@ const mapDispatchToProps = dispatch => {
         addSlide: (slide, pos) => dispatch(addSlide(slide, pos)),
         addPoints: (x, y, drag) => dispatch(addDrawPoints(x, y, drag)),
         resetPoints: () => dispatch(resetDrawPoints()),
-        setSlide: (index) => dispatch(setSlide(index))
-
+        setSlide: (index) => dispatch(setSlide(index)),
+        removeSlide: (index) => dispatch(removeSlide(index)),
     }
 };
 
@@ -52,10 +51,10 @@ class ToolBar extends React.Component {
                                                 <Dropdown.Item  onClick={() => this.props.addSlide(nvSlide, index)} >
                                                     Ajouter  <i className="material-icons left">add</i>
                                                 </Dropdown.Item>
-                                                <Dropdown.Item  onClick={() => this.props.addSlide(nvSlide, index)}>
+                                                <Dropdown.Item  onClick={() => this.props.removeSlide(index)}>
                                                     Supprmier <i className="material-icons left">delete_forever</i>
                                                 </Dropdown.Item>
-                                                <Dropdown.Item onClick={() => this.props.addSlide(nvSlide, index)}>
+                                                <Dropdown.Item >
                                                     Modifier <i className="material-icons left">edit</i>
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>

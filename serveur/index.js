@@ -37,10 +37,17 @@ io.on('connection', function (socket) {
     });
 
     socket.on('set_slide', (action) => {
-        socket.broadcast.emit('set_slide', action);
+        let dernierSlide = -1;
+        if( dernierSlide.index !== action.index) {
+            socket.broadcast.emit("set_slide", action);
+        }
     });
     socket.on('add_item', (action) => {
         socket.broadcast.emit('add_item', action);
+    });
+
+    socket.on("ADD_SLIDE", (action) => {
+        socket.broadcast.emit("ADD_SLIDE", action);
     });
 });
 

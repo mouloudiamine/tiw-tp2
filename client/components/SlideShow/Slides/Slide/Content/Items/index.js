@@ -14,19 +14,21 @@ export class Items extends React.Component {
     render() {
         let listEdit =[];
         let items  = this.props.slides[this.props.index-1].items;
-
         for (let i=0;i < items.length;i++){
             listEdit.push(
-                <EasyEdit
-                    type="text"
-                    key = {i}
-                    onSave={()=>{}}
-                    onCancel={()=>{}}
-                    value = {items[i]}
-                    saveButtonLabel="Sauvegarder"
-                    cancelButtonLabel="Annuler"
-                    attributes={{ name: "awesome-input"}}
-                />)
+                <ol>
+                    <EasyEdit
+                        type="text"
+                        key = {i}
+                        onSave={()=>{}}
+                        onCancel={()=>{}}
+                        value = {items[i]}
+                        saveButtonLabel="Sauvegarder"
+                        cancelButtonLabel="Annuler"
+                        attributes={{ name: "awesome-input"}}
+                    />
+                </ol>
+            )
         }
         return(
             listEdit
