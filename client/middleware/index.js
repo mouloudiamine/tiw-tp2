@@ -3,9 +3,10 @@ import {
     SET_SLIDE,
     ADD_DRAW_POINTS,
     RESET_DRAW_POINTS,
+    ADD_SLIDE,
     setSlide,
     addItem,
-    addDrawPoints, resetDrawPoints
+    addDrawPoints, resetDrawPoints, addSlide
 } from "../redux/actions";
 import store from "../redux/store";
 
@@ -53,5 +54,10 @@ socket.on(ADD_DRAW_POINTS, (action) => {
 socket.on(RESET_DRAW_POINTS, (action) => {
     if (action.type === RESET_DRAW_POINTS) {
         store.dispatch(resetDrawPoints(false));
+    }
+});
+socket.on(ADD_SLIDE, (action) => {
+    if (action.type === ADD_SLIDE) {
+        store.dispatch(addSlide(false));
     }
 });

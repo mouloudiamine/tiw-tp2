@@ -33,10 +33,11 @@ function rootReducer(state = initialState, action) {
             };
         }
         case ADD_ITEM: {
-            state.slides[state.index - 1].items.push(action.payload)
+            let stock = state.slides;
+            stock[state.index - 1].items.push(action.payload);
             return {
                 ...state,
-                slides: state.slides
+                slides: [...state.slides,stock]
             };
         }
 

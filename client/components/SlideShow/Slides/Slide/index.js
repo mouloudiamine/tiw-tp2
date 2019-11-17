@@ -5,6 +5,85 @@ import Row from "react-bootstrap/Row";
 import {connect} from "react-redux";
 import {EDIT, PRESENT} from "../../../../index";
 import {addDrawPoints} from "../../../../redux/actions";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+
+const mapStateToProps = (state) => {
+    return {
+        index: state.index,
+        slide: state.slides[state.index - 1],
+        mode: state.mode,
+        drawing: state.drawing
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addPoints: (x, y, drag) => dispatch(addDrawPoints(x, y, drag)),
+    }
+};
+
+
+function toggleFullScreen(elem) {
+    if ((document.fullscreenElement !== undefined && document.fullScreenElement === null)
+        || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null)
+        || (document.mozFullScreen !== undefined && !document.mozFullScreen)
+        || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+        if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+
+
+export class Slide extends React.Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.refCanvas = React.createRef();
+        this.slideView = React.createRef();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        setPoints(this.props.drawing, this.refCanvas.current);
+    }
+
+
+    render() {
+        let type = this.props.slide.type;
+        let title = this.props.slide.title;
+        let mode = this.props.mode;
+        return (
+            <Row  ref={this.slideView} className={`justify-content-center align-items-center ${mode !== PRESENT ? 'h-75' : 'h-100'} bg-light text-dark`}>
+                <Button className ="slide" variant="warning" onClick={() => toggleFullScreen(this.slideView.current)}><i className="material-icons left">airplay</i> </Button>
+                <Titre title={title}/>
+                {type === "title" ? '' : <Content/>}
+                <canvas className={`stroke justify-content-center align-items-center ${mode !== PRESENT ? 'h-75' : 'h-100'}`}
+                        ref={this.refCanvas}
+                        onPointerDown={pointerDownHandler}
+                        onPointerMove={pointerMoveHandler}
+                        onPointerUp={(ev) => {pointerUpEvent(ev);
+                        this.props.addPoints(clickX, clickY, clickDrag)}}/>
+            </Row>);
+    }
+}
 let clickX = [],
     clickY = [],
     clickDrag = [],
@@ -26,7 +105,7 @@ function redraw(refCanvas) {
 
     context.clearRect(0, 0, context.width, context.height); // Clears the canvas
 
-    context.strokeStyle = "#df4b26";
+    context.strokeStyle = "#FFC107";
     context.lineJoin = "round";
     context.lineWidth = 2;
 
@@ -81,48 +160,6 @@ function setPoints(drawing, canvas) {
 export {addClick, pointerDownHandler, pointerMoveHandler, pointerUpEvent, setPoints,
     clickX, clickY, clickDrag};
 
-const mapStateToProps = (state) => {
-    return {
-        index: state.index,
-        slide: state.slides[state.index - 1],
-        mode: state.mode,
-        drawing: state.drawing
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addPoints: (x, y, drag) => dispatch(addDrawPoints(x, y, drag)),
-    }
-}
-
-export class Slide extends React.Component {
-
-    constructor(props, context) {
-        super(props, context);
-        this.refCanvas = React.createRef();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        setPoints(this.props.drawing, this.refCanvas.current);
-    }
 
 
-    render() {
-        let type = this.props.slide.type;
-        let title = this.props.slide.title;
-        let mode = this.props.mode;
-        return (
-            <Row className={`justify-content-center align-items-center ${mode !== EDIT ? 'h-75' : 'h-100'} bg-light text-dark`}>
-                <Titre title={title}/>
-                {type === "title" ? '' : <Content/>}
-                <canvas className={`stroke ${mode !== PRESENT ? 'h-75' : 'h-100'}`}
-                        ref={this.refCanvas}
-                        onPointerDown={pointerDownHandler}
-                        onPointerMove={pointerMoveHandler}
-                        onPointerUp={(ev) => {pointerUpEvent(ev);
-                        this.props.addPoints(clickX, clickY, clickDrag)}}/>
-            </Row>);
-    }
-}
 export const slide = connect(mapStateToProps, mapDispatchToProps)(Slide);

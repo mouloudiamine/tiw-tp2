@@ -6,7 +6,7 @@ export default class Notes extends React.Component {
         return(
             <Form>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Control  as="textarea"  rows="3" />
+                    <Form.Control  as="textarea"  placeholder={"Ajouter des commentaires"} rows="3" />
                 </Form.Group>
             </Form>
         )

@@ -23,8 +23,6 @@ const mapDispatchToProps = dispatch => {
 
 export class Slides extends React.Component {
 
-
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(
             parseInt(prevProps.match.params.index) === parseInt(this.props.match.params.index)
@@ -48,9 +46,8 @@ export class Slides extends React.Component {
         let mode  = this.props.mode;
         return  (
             <Container fluid={true} className="h-100">
+                { mode ===PRESENT ? '' : <Toolbar /> }
                 <Slide slide={slides[index]}  />
-                <br/>
-                { mode ===PRESENT ? '' : <Toolbar />}
                 { mode ===PRESENT ? '' : <Notes />}
             </Container>
         );
