@@ -56,11 +56,7 @@ socket.on('add_item', (action) => {
     }
 });
 
-socket.on(ADD_DRAW_POINTS, (action) => {
-    if (action.type === ADD_DRAW_POINTS) {
-        store.dispatch(addDrawPoints(action.clickX, action.clickY, action.clickDrag, false));
-    }
-});
+
 
 socket.on(RESET_DRAW_POINTS, (action) => {
     if (action.type === RESET_DRAW_POINTS) {
@@ -68,10 +64,4 @@ socket.on(RESET_DRAW_POINTS, (action) => {
     }
 });
 
-socket.on(ADD_SLIDE, (action) => {
-    console.log("=====>"+JSON.stringify(action));
-    if (action.type === ADD_SLIDE) {
-        store.dispatch(addSlide(action.payload, action.pos, false));
 
-    }
-});

@@ -46,9 +46,7 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('add_item', action);
     });
 
-    socket.on("ADD_SLIDE", (action) => {
-        socket.broadcast.emit("ADD_SLIDE", action);
-    });
+
 });
 
 
